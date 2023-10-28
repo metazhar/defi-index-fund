@@ -1,8 +1,15 @@
-// SPDX License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
 contract DAOManager {
+    struct Index {
+        string name;
+        string[] cryptos;
+        uint256[] weights;
+    }
+
     address[] public members;
+    Index[] public indexProposals;
 
     function addMember(address member) public {
         members.push(member);
@@ -20,5 +27,28 @@ contract DAOManager {
 
     function getMembers() public view returns (address[] memory) {
         return members;
+    }
+
+    function listMembers() public view returns (address[] memory) {
+        return members;
+    }
+
+    function submitIndexProposal(string memory name, string[] memory cryptos, uint256[] memory weights) public {
+        require(isMember(msg.sender), "Only DAO members can submit index proposals");
+        Index memory newIndex = Index(name, cryptos, weights);
+        indexProposals.push(newIndex);
+    }
+
+    function getIndexProposals() public view returns (Index[] memory) {
+        return indexProposals;
+    }
+
+    function isMember(address member) public view returns (bool) {
+        for (uint256 i = 0; i < members.length; i++) {
+            if (members[i] == member) {
+                return true;
+            }
+        }
+        return false;
     }
 }
