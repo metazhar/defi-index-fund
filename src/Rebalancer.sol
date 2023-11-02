@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
+// This contract should contain the endpoints for arbitrageurs to rebalance a vault
+// Needs to be revamped
+
 contract Rebalancer {
     address[] public assets; // The assets in the index.
     uint256[] public desiredWeights; // The desired weights of assets in the index.

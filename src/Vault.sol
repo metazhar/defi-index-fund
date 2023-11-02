@@ -3,6 +3,9 @@ pragma solidity ^0.8.13;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
+// vault contract for defi index fund
+// currently supports erc20 tokens only
+
 contract Vault {
     mapping(address => uint256) public assetBalances;
     address public owner = msg.sender;

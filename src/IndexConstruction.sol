@@ -3,6 +3,9 @@ pragma solidity ^0.8.13;
 
 import "./DAOManager.sol";
 
+// logic for index construction based on methodology
+// allows members to construct and propose indices (upon approval a vault will be created)
+
 contract IndexConstruction {
     DAOManager public daoManager;
     Proposal[] public proposals;

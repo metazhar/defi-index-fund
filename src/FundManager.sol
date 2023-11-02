@@ -3,6 +3,10 @@ pragma solidity ^0.8.13;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
+// This functionality will be separated from the vault
+// the concept of fundManager might just be the vault creator in the beginning,
+//  but could expand to be creator, DAO, or an appointed portfolio manager
+
 contract FundManager is ERC20 {
     address public admin;
 

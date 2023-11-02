@@ -8,6 +8,9 @@ contract FundFactory {
     //  hold the assets and issue the tokens, and be based off the index proposal
     //  It will get generated when the index proposal is approved
 
+    // FundFactory might become VaultFactory
+    // will facilitate the creation of vault
+
     address public admin;
     FundManager[] public funds;
 

@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
+// NAV calculation logic
+// Uses price oracle
+
 contract NAVCalculator {
     address public admin;
     address[] public assets;
