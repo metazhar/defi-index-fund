@@ -1,19 +1,15 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.21;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-
-// vault contract for defi index fund
-// currently supports erc20 tokens only
+import "./MultiAssetPool.sol";
 
 contract Vault {
-    mapping(address => uint256) public assetBalances;
     address public owner = msg.sender;
     MultiAssetPool public pool;
     uint256 public feePercentage = 1; // 1% for simplicity
 
-    constructor() {
-        pool = new MultiAssetPool(address(this));
+    constructor(address[] memory _assets, uint256[] memory _weights) {
+        pool = new MultiAssetPool(_assets, _weights);
     }
 
     modifier onlyOwner() {
@@ -23,39 +19,42 @@ contract Vault {
 
     // User deposit to vault
     function deposit(address asset, uint256 amount) external {
-        // Transfer asset to vault and increase vault balance
-        Token(asset).transfer(address(this), amount);
-        assetBalances[asset] += amount;
+        uint256 fee = (feePercentage * amount) / 100;
+        uint256 netAmt = amount - fee;
+
+        IERC20(asset).transferFrom(msg.sender, address(this), fee); // Transfer fee to vault directly
+        IERC20(asset).transferFrom(msg.sender, address(pool), netAmt); // Transfer net amount to MultiAssetPool
+
+        pool.deposit(asset, netAmt);
     }
 
     // User withdraw from vault
     function withdraw(address asset, uint256 amount) external {
-        require(assetBalances[asset] >= amount, "Not enough balance");
+        pool.withdraw(asset, amount);
+
         uint256 fee = (feePercentage * amount) / 100;
         uint256 netAmt = amount - fee;
 
-        // Transfer fee to vault manager
-        Token(asset).transfer(owner, fee);
-
-        // Transfer the net amount to the user
-        assetBalances[asset] -= amount;
-        Token(asset).transfer(msg.sender, netAmt);
+        IERC20(asset).transfer(owner, fee); // Transfer fee to vault manager
+        IERC20(asset).transfer(msg.sender, netAmt); // Transfer the net amount to the user
     }
 
     function balanceOfAsset(address asset) external view returns (uint256) {
-        return assetBalances[asset];
+        return pool.assetBalances(asset);
     }
 
-    function transferAssetFrom(address from, address asset, uint256 amount) external {
-        require(msg.sender == address(pool), "Unauthorized");
-        require(Token(asset).balanceOf(from) >= amount, "Insufficient balance");
-        Token(asset).transferFrom(from, address(this), amount);
-        assetBalances[asset] += amount;
+    // Administrative functions to manage the MultiAssetPool
+    function adjustWeights(address[] memory newAssets, uint256[] memory newWeights) external onlyOwner {
+        pool.adjustWeights(newAssets, newWeights);
     }
 
-    function transferAssetTo(address to, address asset, uint256 amount) external {
-        require(msg.sender == address(pool), "Unauthorized");
-        assetBalances[asset] -= amount;
-        Token(asset).transfer(to, amount);
+    function addNewAsset(address newAsset, uint256 weight) external onlyOwner {
+        pool.addNewAsset(newAsset, weight);
     }
+
+    function removeAsset(address asset) external onlyOwner {
+        pool.removeAsset(asset);
+    }
+
+    // ... Additional functions as necessary for governance, emergency stops, etc.
 }

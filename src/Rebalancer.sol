@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.21;
 
 // This contract should contain the endpoints for arbitrageurs to rebalance a vault
 // Needs to be revamped
