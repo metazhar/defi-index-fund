@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.21;
+pragma solidity ^0.8.13;
 
 import "../src/Vault.sol";
 import "../src/MultiAssetPool.sol";
+import "forge-std/Test.sol";
 
-contract TestVault {
+contract TestVault is Test {
     IERC20 public testTokenA;
     IERC20 public testTokenB;
 
@@ -28,7 +29,9 @@ contract TestVault {
         pool = MultiAssetPool(address(vault));
     }
 
-    function test_deposit() public {
+    function setUp() public {}
+
+    function testDeposit() public {
         uint256 initialBalance = testTokenA.balanceOf(address(this));
         require(initialBalance > 0, "Initial balance too low");
 
@@ -43,7 +46,7 @@ contract TestVault {
         require(testTokenA.balanceOf(address(pool)) == expectedPoolBalance, "Incorrect pool balance after deposit");
     }
 
-    function test_withdraw() public {
+    function testWithdraw() public {
         uint256 depositAmount = testTokenA.balanceOf(address(this));
         testTokenA.approve(address(vault), depositAmount);
         vault.deposit(address(testTokenA), depositAmount);

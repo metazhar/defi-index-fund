@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.21;
+pragma solidity ^0.8.13;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
@@ -69,36 +69,36 @@ contract MultiAssetPool {
     // TODO
     // ____________________________________________________________
 
-    // Placeholder for adjusting asset weights.
-    function adjustWeights(address[] memory newAssets, uint256[] memory newWeights) external {
-        // Implement logic for adjusting weights.
-        // Consider authorization checks to ensure only authorized entities can adjust.
-    }
+    // // // Placeholder for adjusting asset weights.
+    // function adjustWeights(address[] memory newAssets, uint256[] memory newWeights) external {
+    //     // Implement logic for adjusting weights.
+    //     // Consider authorization checks to ensure only authorized entities can adjust.
+    // }
 
-    // Placeholder for adding new assets to the pool.
-    function addNewAsset(address newAsset, uint256 weight) external {
-        // Implement logic for adding new assets.
-        // Remember to check if asset is already present.
-    }
+    // // Placeholder for adding new assets to the pool.
+    // function addNewAsset(address newAsset, uint256 weight) external {
+    //     // Implement logic for adding new assets.
+    //     // Remember to check if asset is already present.
+    // }
 
-    // Placeholder for removing assets.
-    function removeAsset(address asset) external {
-        // Implement logic for removing an asset from the pool.
-        // Consider what should be done with the existing balance of the asset.
-    }
+    // // Placeholder for removing assets.
+    // function removeAsset(address asset) external {
+    //     // Implement logic for removing an asset from the pool.
+    //     // Consider what should be done with the existing balance of the asset.
+    // }
 
-    // Placeholder for governance or administrative changes.
-    function changeGovernance(address newGovernance) external {
-        // Logic to change the governance or administrative controls of the contract.
-    }
+    // // Placeholder for governance or administrative changes.
+    // function changeGovernance(address newGovernance) external {
+    //     // Logic to change the governance or administrative controls of the contract.
+    // }
 
-    // Placeholder for emergency stop in case of detected issues.
-    function emergencyPause() external {
-        // Implement logic to pause certain functions in emergencies.
-    }
+    // // Placeholder for emergency stop in case of detected issues.
+    // function emergencyPause() external {
+    //     // Implement logic to pause certain functions in emergencies.
+    // }
 
-    // Placeholder for resuming operations post-emergency.
-    function emergencyResume() external {
-        // Implement logic to resume operations after an emergency stop.
-    }
+    // // Placeholder for resuming operations post-emergency.
+    // function emergencyResume() external {
+    //     // Implement logic to resume operations after an emergency stop.
+    // }
 }

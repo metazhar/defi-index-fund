@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.21;
+pragma solidity ^0.8.13;
 
 import "./MultiAssetPool.sol";
 
@@ -43,18 +43,18 @@ contract Vault {
         return pool.assetBalances(asset);
     }
 
-    // Administrative functions to manage the MultiAssetPool
-    function adjustWeights(address[] memory newAssets, uint256[] memory newWeights) external onlyOwner {
-        pool.adjustWeights(newAssets, newWeights);
-    }
+    // // Administrative functions to manage the MultiAssetPool
+    // function adjustWeights(address[] memory newAssets, uint256[] memory newWeights) external onlyOwner {
+    //     pool.adjustWeights(newAssets, newWeights);
+    // }
 
-    function addNewAsset(address newAsset, uint256 weight) external onlyOwner {
-        pool.addNewAsset(newAsset, weight);
-    }
+    // function addNewAsset(address newAsset, uint256 weight) external onlyOwner {
+    //     pool.addNewAsset(newAsset, weight);
+    // }
 
-    function removeAsset(address asset) external onlyOwner {
-        pool.removeAsset(asset);
-    }
+    // function removeAsset(address asset) external onlyOwner {
+    //     pool.removeAsset(asset);
+    // }
 
     // ... Additional functions as necessary for governance, emergency stops, etc.
 }

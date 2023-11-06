@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.21;
+pragma solidity ^0.8.13;
 
 // This contract contains the list of DAO members and allows proposals
 //  to be submitted, viewed, and voted upon
